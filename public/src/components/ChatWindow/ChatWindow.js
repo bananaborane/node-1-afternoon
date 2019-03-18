@@ -13,7 +13,8 @@ export default class ChatWindow extends Component {
     super();
     this.state = {
       messages: [],
-      text: ''
+      text: '',
+      username: ''
     };
 
     this.handleChange = this.handleChange.bind( this );
@@ -32,10 +33,16 @@ export default class ChatWindow extends Component {
     this.setState({ text: event.target.value });
   }
 
+  // handleUsernameChange = ( event ) => {
+  //   this.setState({ username: event.target.value });
+  // }
+
+  // setTheUsername = ()=>{}
+
   createMessage( event ) {
     const { text } = this.state;
     if ( event.key === "Enter" && text.length !== 0 ) {
-      axios.post( url, { text, time: dateCreator() } ).then( response => {
+      axios.post( url, { text, time: dateCreator(), username } ).then( response => {
         this.setState({ messages: response.data });
       });
 
@@ -74,6 +81,9 @@ export default class ChatWindow extends Component {
                  onChange={ this.handleChange }
                  value={ this.state.text }
           />
+          {/* <input placeholder="Enter your username here."
+                  onChange={ this.handleUsernameChange }
+                  onKeyPress={ this.setTheUsername }/> */}
         </div>
       </div>
     )
